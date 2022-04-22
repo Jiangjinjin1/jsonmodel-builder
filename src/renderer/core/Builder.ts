@@ -166,15 +166,15 @@ class Builder {
           type = `${key}Model`;
         }
         this.getModel(type, _.first(value) as any, templates);
-        items.push(` ${key}: { type: [${type}] } `);
+        items.push(` ${key}: { type: JsonModel.ArrayOf(${type}) } `);
       } else {
-        items.push(` ${key}: { type: '${valueType}' } `);
+        items.push(` ${key}: { type: JsonModel.Types.${valueType} } `);
       }
     });
     const template = items.join(',');
     templates.push({
       modelName,
-      template: `const ${modelName} = new JsonModel.define({ ${template} });`,
+      template: `const ${modelName} = new JsonModel.Define({ ${template} });`,
     });
     return templates;
   }
