@@ -164,11 +164,13 @@ class Builder {
         let type: string = _.last(types) || '';
         if (type === 'PlainObject') {
           type = `${key}Model`;
+        } else {
+          type = ` JsonModel.Types.${type} `;
         }
         this.getModel(type, _.first(value) as any, templates);
-        items.push(` ${key}: { type: JsonModel.ArrayOf(${type}) } `);
+        items.push(` ${key}: { type: JsonModel.ArrayOf(${type}), } `);
       } else {
-        items.push(` ${key}: { type: JsonModel.Types.${valueType} } `);
+        items.push(` ${key}: { type: JsonModel.Types.${valueType}, } `);
       }
     });
     const template = items.join(',');
